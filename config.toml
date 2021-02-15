@@ -1,6 +1,6 @@
 theme = "harbor"
 baseurl = "https://diabhey.github.io/"
-title = "The Cloud Odyssey"
+title = "TheCloudOdyssey"
 paginate = 3
 languageCode = "en"
 DefaultContentLanguage = "en"
@@ -10,12 +10,12 @@ footnoteReturnLinkContents = "^"
 # Optional
 # If you use googleAnalytics, 
 #you set top-level options in config.toml to the beginning of the config file like other top-level options.
-googleAnalytics = "UA-XXXXXXXX-XX"
+# googleAnalytics = "UA-XXXXXXXX-XX"
 # and disqus too.
-disqusShortName = "yourdisqusshortname"
+# disqusShortName = "yourdisqusshortname"
 
-[params.goatcounter]
-  domain="stats.domain.com"
+# [params.goatcounter]
+  # domain="stats.domain.com"
 
 [Author]
   name = "Abhimanyu Selvan"
@@ -58,12 +58,20 @@ disqusShortName = "yourdisqusshortname"
   url = "archives"
   weight = 3
 
-# copy paste this block and change for each social media to add how many ever social media
-# acounts/links you want
 [[params.social]]
-  name="name of social media"
-  url="link to social media"
-  icon="A icon from https://fontawesome.com/"
+  name= "linkedin-in"
+  url="https://linkedin.com/in/abhimanyuselvan"
+  icon="fab fa-linkedin-in"  
+
+[[params.social]]
+  name= "github"
+  url="https://github.com/diabhey"
+  icon="fab fa-github"  
+
+[[params.social]]
+  name= "twitter"
+  url="https://twitter.com/diabhey"
+  icon="fab fa-twitter"  
 
 [params.logo]
   url = "icon.png" # static/images/icon.png
