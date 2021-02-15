@@ -1,5 +1,5 @@
 theme = "harbor"
-baseurl = "https://www.thecloudodyssey.com"
+baseurl = "https://diabhey.github.io/"
 title = "The Cloud Odyssey"
 paginate = 3
 languageCode = "en"
