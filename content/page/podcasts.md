@@ -1,4 +1,11 @@
-# Abhi's AudioRack
+---
+title: "Abhi's Audiorack"
+date : 2020-02-12T20:00:00+09:00
+draft : false
+toc : false
+backtotop : false
+disable_comments : true
+---
 
 Podcasts are the best. Period.  
 Now that we have it sorted, let's go through some of my favourite's out there.
