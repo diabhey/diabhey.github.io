@@ -1,24 +1,18 @@
 theme = "harbor"
 baseurl = "https://diabhey.github.io/"
-title = "TheCloudOdyssey"
+title = "CloudOdyssey"
 paginate = 3
 languageCode = "en"
 DefaultContentLanguage = "en"
 enableInlineShortcodes = true
 footnoteReturnLinkContents = "^"
 
-# Optional
-# If you use googleAnalytics, 
-#you set top-level options in config.toml to the beginning of the config file like other top-level options.
-# googleAnalytics = "UA-XXXXXXXX-XX"
-# and disqus too.
-# disqusShortName = "yourdisqusshortname"
-
-# [params.goatcounter]
-  # domain="stats.domain.com"
-
 [Author]
   name = "Abhimanyu Selvan"
+
+[permalinks]
+	post = "/:year/:month/:day/:filename/"
+	page = "/:filename/"
 
 [outputs]
   section = ["JSON", "HTML"]
@@ -28,7 +22,21 @@ footnoteReturnLinkContents = "^"
   name = "About"
   icon = "fas fa-user fa-lg"
   url = "/about/"
-  weight = 3
+  weight = 1
+
+[[params.nav]]
+identifier = "bookshelf"
+name = "bookshelf"
+icon = "fas fa-book fa-lg"
+url = "/bookshelf/"
+weight = 1
+
+[[params.nav]]
+identifier = "podcasts"
+name = "podcasts"
+icon = "fas fa-podcast fa-lg"
+url = "/podcasts/"
+weight = 1
 
 [[params.nav]]
   identifier = "tags"
@@ -38,25 +46,11 @@ footnoteReturnLinkContents = "^"
   weight = 3
 
 [[params.nav]]
-  identifier = "categories"
-  name = "Category"
-  icon = "fas fa-folder-open fa-lg"
-  url = "categories"
-  weight = 3
-
-[[params.nav]]
-  identifier = "search"
-  name = "Search"
-  icon = "fas fa-search fa-lg"
-  url = "search"
-  weight = 3
-
-[[params.nav]]
-  identifier = "archives"
-  name = "Archives"
-  icon = "fas fa-archive fa-lg"
-  url = "archives"
-  weight = 3
+identifier = "categories"
+name = "Category"
+icon = "fas fa-folder fa-lg"
+url = "categories"
+weight = 3
 
 [[params.social]]
   name= "linkedin-in"
@@ -72,6 +66,10 @@ footnoteReturnLinkContents = "^"
   name= "twitter"
   url="https://twitter.com/diabhey"
   icon="fab fa-twitter"  
+
+[params]
+  mainSections = ["post"]
+  favicon = "favicon.ico"
 
 [params.logo]
   url = "icon.png" # static/images/icon.png
