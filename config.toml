@@ -25,13 +25,6 @@ footnoteReturnLinkContents = "^"
   weight = 1
 
 [[params.nav]]
-identifier = "bookshelf"
-name = "bookshelf"
-icon = "fas fa-book fa-lg"
-url = "/bookshelf/"
-weight = 1
-
-[[params.nav]]
 identifier = "podcasts"
 name = "podcasts"
 icon = "fas fa-podcast fa-lg"
