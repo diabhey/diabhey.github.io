@@ -4,6 +4,7 @@ title = "CloudOdyssey"
 paginate = 3
 languageCode = "en"
 DefaultContentLanguage = "en"
+enableEmoji = true
 enableInlineShortcodes = true
 footnoteReturnLinkContents = "^"
 
