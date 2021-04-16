@@ -9,16 +9,18 @@
 		
 		<managingEditor>Page(/categories/cloud) (Abhimanyu Selvan)</managingEditor>
     	
-  		<lastBuildDate>Fri, 14 Feb 2020 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Sun, 14 Feb 2021 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/categories/cloud/" rel="self" type="application/rss+xml" />
 		
 		<item>
 			<title>Cloudception</title>
-			<link>https://diabhey.github.io/2020/02/14/2020-02-14-cloudception/</link>
-			<pubDate>Fri, 14 Feb 2020 00:00:00 +0000</pubDate>
-			<guid>https://diabhey.github.io/2020/02/14/2020-02-14-cloudception/</guid>
-			<description></description>
+			<link>https://diabhey.github.io/2021/02/14/2021-02-14-cloudception/</link>
+			<pubDate>Sun, 14 Feb 2021 00:00:00 +0000</pubDate>
+			<guid>https://diabhey.github.io/2021/02/14/2021-02-14-cloudception/</guid>
+			<description>On Valentines day, I decided to go public about my love affair with the cloud. The more time I spend in the open source world, the stronger I feel to share my thoughts with all the CloudSurfers out there.
+I intend to use this space as a digital journal for all things cloud-native. The posts will be centered around the following topics but certainly not limited to
+  Cloud native tools and software</description>
 		</item>
       	
 	</channel>
