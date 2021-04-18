@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-<title>CloudOdyssey</title>
+<title>Multi-node K8s at home</title>
 
 
   
@@ -18,8 +18,10 @@
   title="CloudOdyssey"
 />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="CloudOdyssey"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="Multi-node K8s at home"/>
+<meta name="twitter:description" content="Nowadays, there are many off-the-shelf solutions to get k8s up and running. Here are some of the Lightweight Kubernetes out there,
+ kind microk8s k3s LKE (not free)  These k8s distribution have ample documentation and examples online that will easily help you set it up.
+Let&rsquo;s do it the hard way In this blog post, I will guide the readers through a series of steps that I did to set up a multi-node K8s cluster at home."/>
 
 
 
@@ -48,9 +50,7 @@
   <body>
     
   
-    
-  
-  
+
 
 
 
@@ -108,44 +108,14 @@
 
     <div class="intro-header">
       <div class="container">
-        <div class="page-heading">
+        <div class="post-heading">
           
             <h1>
-              CloudOdyssey
+              Multi-node K8s at home
             </h1>
           
           
-        </div>
-      </div>
-    </div>
-  </header>
-  
-
-    
-  <div class="container" role="main">
-    <div class="posts-list">
-      
-        
-        
-
-      
-        <article class="post-preview">
-  <a href="https://diabhey.github.io/2021/04/18/2021-04-18-local-k8s/">
-    <h2 class="post-title">Multi-node K8s at home</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p>Nowadays, there are many off-the-shelf solutions to get k8s up and running. Here are some of the Lightweight Kubernetes out there,
- kind microk8s k3s LKE (not free)  These k8s distribution have ample documentation and examples online that will easily help you set it up.
-Let&rsquo;s do it the hard way In this blog post, I will guide the readers through a series of steps that I did to set up a multi-node K8s cluster at home.</p>
-      <a href="https://diabhey.github.io/2021/04/18/2021-04-18-local-k8s/" class="post-read-more"
-        >Read More</a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
+            <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Apr 18, 2021
   
@@ -157,43 +127,54 @@ Let&rsquo;s do it the hard way In this blog post, I will guide the readers throu
   
 </span>
 
-  </div>
-</article>
-
-      
-        <article class="post-preview">
-  <a href="https://diabhey.github.io/2021/02/14/2021-02-14-cloudception/">
-    <h2 class="post-title">Cloudception</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p>On Valentines day, I decided to go public about my love affair with the cloud. The more time I spend in the open source world, the stronger I feel to share my thoughts with all the CloudSurfers out there.
-I intend to use this space as a digital journal for all things cloud-native. The posts will be centered around the following topics but certainly not limited to
-  Cloud native tools and software</p>
-      <a href="https://diabhey.github.io/2021/02/14/2021-02-14-cloudception/" class="post-read-more"
-        >Read More</a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;Feb 14, 2021
-  
-    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
-    
-      <a href="https://diabhey.github.io/categories/cloud/">cloud</a
-      >&nbsp;
-    
-  
-</span>
-
-  </div>
-</article>
-
-      
+          
+        </div>
+      </div>
     </div>
+  </header>
+  
+
+    
+  <div class="container" role="main">
+    <article class="article" class="blog-post">
+      
+  <p>Nowadays, there are many off-the-shelf solutions to get k8s up and running. Here are some of the Lightweight Kubernetes out there,</p>
+<ul>
+<li><a href="https://kind.sigs.k8s.io/">kind</a></li>
+<li><a href="https://microk8s.io/">microk8s</a></li>
+<li><a href="https://k3s.io/">k3s</a></li>
+<li><a href="https://www.linode.com/">LKE (not free)</a></li>
+</ul>
+<p>These k8s distribution have ample documentation and examples online that will easily help you set it up.</p>
+<h1 id="lets-do-it-the-hard-way">Let&rsquo;s do it the hard way</h1>
+<p>In this blog post, I will guide the readers through a series of steps that I did to set up a multi-node <a href="https://kubernetes.io/">K8s</a> cluster at home.</p>
+<h3 id="pre-requisites">Pre-requisites</h3>
+<ul>
+<li><a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin">System Requirements</a></li>
+<li><a href="https://docs.kublr.com/installation/hardware-recommendation/#kublr-kubernetes-cluster-requirements">Hardware Requirements</a></li>
+</ul>
+<p>Cluster node requirements is dependent on what you are going to run on k8s. I will assume you have met the minimum requirements to get started.</p>
+<p><strong>My Setup</strong></p>
+<ul>
+<li>Control Plane: <a href="https://www.intel.com/content/www/us/en/products/details/nuc/kits.html">Intel NUC</a></li>
+<li>Worker Nodes: Two old laptops</li>
+<li>Both Control Plane and Woker Nodes are running <a href="https://releases.ubuntu.com/20.04/">Ubuntu 20.04-LTS</a></li>
+</ul>
+<p>[To be continued]</p>
+
+
+
+
+      
+        <div class="blog-tags">
+          
+            <a href="https://diabhey.github.io/tags/kubernetes/">kubernetes</a
+            >&nbsp;
+          
+        </div>
+      
+    </article>
+    
     
   </div>
 

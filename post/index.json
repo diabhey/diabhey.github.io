@@ -2,6 +2,16 @@
     
         
             {
+                "ref": "https://diabhey.github.io/2021/04/18/2021-04-18-local-k8s/",
+                "title": "Multi-node K8s at home",
+                "section": "post",
+                "date" : "2021.04.18",
+                "body": "Nowadays, there are many off-the-shelf solutions to get k8s up and running. Here are some of the Lightweight Kubernetes out there,\n kind microk8s k3s LKE (not free)  These k8s distribution have ample documentation and examples online that will easily help you set it up.\nLet\u0026rsquo;s do it the hard way In this blog post, I will guide the readers through a series of steps that I did to set up a multi-node K8s cluster at home.\nPre-requisites  System Requirements Hardware Requirements  Cluster node requirements is dependent on what you are going to run on k8s. I will assume you have met the minimum requirements to get started.\nMy Setup\n Control Plane: Intel NUC Worker Nodes: Two old laptops Both Control Plane and Woker Nodes are running Ubuntu 20.04-LTS  [To be continued]\n"
+            }
+        
+    ,
+        
+            {
                 "ref": "https://diabhey.github.io/2021/02/14/2021-02-14-cloudception/",
                 "title": "Cloudception",
                 "section": "post",
