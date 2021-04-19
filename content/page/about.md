@@ -22,7 +22,7 @@ I enjoy designing and building cloud native software solutions.
 
 - Containerization - Docker, Docker-Compose
 
-- Container Orchestration - Microk8s, Kubernetes
+- Container Orchestration - Microk8s, Kubernetes, LKE(Linode)
 
 - Programming Languages: Python 3.8, Go 1.15, YAML, HCL(Hashicorp), Bash
 
@@ -32,7 +32,7 @@ I enjoy designing and building cloud native software solutions.
 
 - Editor: VS Code, [Typora - Markdown](https://typora.io/)
 
-- Terminal: [Terminator](https://terminator-gtk3.readthedocs.io/en/latest/#)
+- Terminal: [Terminator](https://terminator-gtk3.readthedocs.io/en/latest/#) + Zsh + Oh My Zsh
 
 **You can find me on :earth_asia:**
 
