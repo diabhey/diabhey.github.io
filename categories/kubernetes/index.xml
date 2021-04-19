@@ -28,7 +28,7 @@ Let&amp;rsquo;s do it the hard way In this blog post, I will guide the readers t
 			<link>https://diabhey.github.io/2021/04/12/2021-04-12-remote-server-monitoring/</link>
 			<pubDate>Mon, 12 Apr 2021 00:00:00 +0000</pubDate>
 			<guid>https://diabhey.github.io/2021/04/12/2021-04-12-remote-server-monitoring/</guid>
-			<description>The stations will be deployed across the globe and we need a way to effectively monitor and alert us in real-time. Thanks to Prometheus, all the heavy-lifting is done for us. In this post, I will run through a series of steps that is required to setup Prometheus on a linux server and then go ahead and setup Grafana Cloud as our observability platform through which can intuitively gain insights from our data sources across the globe.</description>
+			<description>The stations will be deployed across the globe and we need a way to effectively monitor and alert us in real-time. Thanks to Prometheus, all the heavy-lifting is done for us. In this post, I will run through a series of steps that is required to setup Prometheus on a Linux server and then go ahead and setup Grafana Cloud as our observability platform through which can intuitively gain insights from our data sources across the globe.</description>
 		</item>
       	
 		<item>
