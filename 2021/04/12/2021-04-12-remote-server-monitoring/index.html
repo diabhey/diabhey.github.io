@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>Remote Server Monitoring and Observability</title>
+
+
+  
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://diabhey.github.io/index.xml"
+  title="CloudOdyssey"
+/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Remote Server Monitoring and Observability"/>
+<meta name="twitter:description" content="The stations will be deployed across the globe and we need a way to effectively monitor and alert us in real-time. Thanks to Prometheus, all the heavy-lifting is done for us. In this post, I will run through a series of steps that is required to setup Prometheus on a linux server and then go ahead and setup Grafana Cloud as our observability platform through which can intuitively gain insights from our data sources across the globe."/>
+
+
+
+<link rel="stylesheet" href="https://diabhey.github.io/fontawesome/css/all.min.css" />
+
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://diabhey.github.io/css/dark.css"
+/>
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+<script src="https://diabhey.github.io/js/bundle.js"></script>
+<script src="https://diabhey.github.io/js/instantpage.min.js" type="module" defer></script>
+<meta name="generator" content="Hugo 0.79.1" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+        <a href="https://diabhey.github.io/" class="nav-logo">
+        <img
+          src="https://diabhey.github.io/images/icon.png"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+        </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/podcasts/" id="podcasts"
+              ><em class="fas fa-podcast fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/tags" id="Tags"
+              ><em class="fas fa-tag fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/categories" id="Category"
+              ><em class="fas fa-folder fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
+          
+            <h1>
+              Remote Server Monitoring and Observability
+            </h1>
+          
+          
+            <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Apr 12, 2021
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a href="https://diabhey.github.io/categories/cloud/">cloud</a
+      >&nbsp;
+    
+  
+</span>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+  
+
+    
+  <div class="container" role="main">
+    <article class="article" class="blog-post">
+      
+  <p>The stations will be deployed across the globe and we need a way to effectively monitor and alert us in real-time. Thanks to <a href="https://prometheus.io/">Prometheus</a>, all the heavy-lifting is done for us.  In this post, I will run through a series of steps that is required to  setup Prometheus on a linux server and then go ahead and setup <a href="https://grafana.com/products/cloud/">Grafana Cloud</a> as our observability platform through which can intuitively gain insights from our data sources across the globe.</p>
+<h3 id="requirements">Requirements</h3>
+<ul>
+<li><a href="https://grafana.com/docs/grafana-cloud/quickstart/">Grafana Cloud Account</a></li>
+<li>Access to Linux Server(Node)</li>
+</ul>
+<h3 id="set-up-prometheus-and-node-exporter">Set up Prometheus and Node Exporter</h3>
+<p>Firstly, we will need to setup the <a href="https://github.com/prometheus/node_exporter">node_exporter</a> that is responsible for collecting the prometheus metrics and sending it to the grafana cloud.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Download the node_exporter</span>
+wget https://github.com/prometheus/node_exporter/releases/download/v*/node_exporter-*.*-amd64.tar.gz
+<span style="color:#75715e"># Extract and execute</span>
+tar xvfz node_exporter-*.*-amd64.tar.gz 
+cd node_exporter-*.*-amd64
+./node_exporter
+</code></pre></div><p>Secondly, install Prometheus on the node</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Download prometheus</span>
+wget https://github.com/prometheus/prometheus/releases/download/v*/prometheus-*.*-amd64.tar.gz
+<span style="color:#75715e"># Extract </span>
+tar xvf prometheus-*.*-amd64.tar.gz
+cd prometheus-*.*
+</code></pre></div><p>Now we need to configure prometheus to publish the content to grafana cloud. For that, we need to create the <code>prometheus.yml</code> in the same directory as the prometheus binary with the following content,</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">global</span>:
+  <span style="color:#f92672">scrape_interval</span>: <span style="color:#ae81ff">15s</span>
+
+<span style="color:#f92672">scrape_configs</span>:
+  - <span style="color:#f92672">job_name</span>: <span style="color:#ae81ff">node</span>
+    <span style="color:#f92672">static_configs</span>:
+    - <span style="color:#f92672">targets</span>: [<span style="color:#e6db74">&#39;localhost:9100&#39;</span>]
+
+<span style="color:#f92672">remote_write</span>:
+  - <span style="color:#f92672">url</span>: <span style="color:#ae81ff">https://prometheus-us-central1.grafana.net/api/prom/push</span>
+    <span style="color:#f92672">basic_auth</span>:
+      <span style="color:#f92672">username</span>: <span style="color:#e6db74">&#34;your grafana username&#34;</span>
+      <span style="color:#f92672">password</span>: <span style="color:#e6db74">&#34;your Grafana API key&#34;</span>
+</code></pre></div><p>Save the file and we shall come back to it shortly.  The grafana <code>username</code> and <code>password</code> need to be created in order to visualise the data on the grafana dashboard. Let&rsquo;s login into grafana cloud portal and create a stack</p>
+<p><img src="/home/abhi/code/personal/github/diabhey.github.io/static/images/create_grafana_stack.png" alt="create_grafana_stack"></p>
+<p>The instance will be created shortly and an <strong>url</strong> will be generated through which we can access our grafana enterprise stack.</p>
+<p><img src="/home/abhi/code/personal/github/diabhey.github.io/static/images/station.png" alt="station-stack"></p>
+<p>Copy the Prometheus <strong>remote_write</strong> Configuration generated and add it to the <code>prometheus.yml</code> file we had created earlier.  Save the file and exit.</p>
+<p>Open a terminal and navigate to the prometheus and node_exporter directory and  run the following,</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Start prometheus</span>
+./prometheus --config.file<span style="color:#f92672">=</span>./prometheus.yml
+<span style="color:#75715e"># Start node_exporter</span>
+./node_exporter
+
+</code></pre></div><p>Login into the <code>https://&lt;your stack&gt;.grafana.net</code> and select the data source as the prometheus instance that we had created earlier. This step is needed to visualise the data being published from the nodes. You can now create your own dashboard to monitor the metrics of your choice or import <a href="https://grafana.com/grafana/dashboards">exisitng dashboards</a>.</p>
+<p>For this demo, I have imported the Node Exporter Quickstart Dashboard (<em>id: 13978</em>)</p>
+<p><img src="/home/abhi/code/personal/github/diabhey.github.io/static/images/dashboard.png" alt="station-dashboard"></p>
+<p>There you have it. On the next monitoring and observability series, I will explain how to configure our existing setup to also monitor the docker containers running on the nodes.</p>
+
+
+
+
+      
+        <div class="blog-tags">
+          
+            <a href="https://diabhey.github.io/tags/monitoring/">monitoring</a
+            >&nbsp;
+          
+            <a href="https://diabhey.github.io/tags/observability/">observability</a
+            >&nbsp;
+          
+        </div>
+      
+    </article>
+    
+    
+  </div>
+
+    <footer>
+  
+  <div>
+    
+      <a href="https://linkedin.com/in/abhimanyuselvan" name="linkedin-in"
+        ><em class="fab fa-linkedin-in"></em
+      ></a>
+    
+      <a href="https://github.com/diabhey" name="github"
+        ><em class="fab fa-github"></em
+      ></a>
+    
+      <a href="https://twitter.com/diabhey" name="twitter"
+        ><em class="fab fa-twitter"></em
+      ></a>
+    
+
+
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://diabhey.github.io/about">Abhimanyu Selvan</a>
+      &nbsp;&copy;
+      2021
+      
+        &nbsp;/&nbsp;
+        <a href="https://diabhey.github.io/">CloudOdyssey</a>
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

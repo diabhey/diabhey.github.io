@@ -1,17 +1,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>cloud on CloudOdyssey</title>
-		<link>https://diabhey.github.io/tags/cloud/</link>
-		<description>Recent content in cloud </description>
+		<title>observability on CloudOdyssey</title>
+		<link>https://diabhey.github.io/tags/observability/</link>
+		<description>Recent content in observability </description>
 		<generator>Hugo -- gohugo.io</generator>
 		
   		<language>en</language>
 		
-		<managingEditor>Page(/tags/cloud) (Abhimanyu Selvan)</managingEditor>
+		<managingEditor>Page(/tags/observability) (Abhimanyu Selvan)</managingEditor>
     	
-  		<lastBuildDate>Sun, 14 Feb 2021 00:00:00 +0000</lastBuildDate>
+  		<lastBuildDate>Mon, 12 Apr 2021 00:00:00 +0000</lastBuildDate>
 		
-		<atom:link href="/tags/cloud/" rel="self" type="application/rss+xml" />
+		<atom:link href="/tags/observability/" rel="self" type="application/rss+xml" />
 		
 		<item>
 			<title>Multi-node K8s at home</title>
