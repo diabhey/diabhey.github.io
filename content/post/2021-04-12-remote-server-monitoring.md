@@ -1,7 +1,7 @@
 ---
 title: "Remote Server Monitoring and Observability"
-date: 2021-04-19T11:42:04+02:00
-draft: true
+date : '2021-04-12'
+draft: false
 toc : false
 backtotop : no
 disable_comments : true
@@ -21,9 +21,7 @@ The stations will be deployed across the globe and we need a way to effectively 
 
 ### Set up Prometheus and Node Exporter
 
-
-
-Firstly, we will need to setup the [node_exporter](https://github.com/prometheus/node_exporter) that is responsible for collecting the prometheus metrics and sending it to the grafana cloud. 
+Firstly, we will need to setup the [node_exporter](https://github.com/prometheus/node_exporter) that is responsible for collecting the prometheus metrics and sending it to the grafana cloud.
 
 ```bash
 # Download the node_exporter
@@ -70,7 +68,7 @@ The instance will be created shortly and an **url** will be generated through wh
 
 ![station-stack](/home/abhi/code/personal/github/diabhey.github.io/static/images/station.png)
 
-Copy the Prometheus **remote_write** Configuration generated and add it to the `prometheus.yml` file we had created earlier.  Save the file. 
+Copy the Prometheus **remote_write** Configuration generated and add it to the `prometheus.yml` file we had created earlier.  Save the file and exit.
 
  Open a terminal and navigate to the prometheus and node_exporter directory and  run the following, 
 
@@ -84,7 +82,7 @@ Copy the Prometheus **remote_write** Configuration generated and add it to the `
 
 Login into the `https://<your stack>.grafana.net` and select the data source as the prometheus instance that we had created earlier. This step is needed to visualise the data being published from the nodes. You can now create your own dashboard to monitor the metrics of your choice or import [exisitng dashboards](https://grafana.com/grafana/dashboards).
 
-For this demo, I have imported the Node Exporter Quickstart Dashboard (13978) 
+For this demo, I have imported the Node Exporter Quickstart Dashboard (*id: 13978*)
 
 ![station-dashboard](/home/abhi/code/personal/github/diabhey.github.io/static/images/dashboard.png)
 
