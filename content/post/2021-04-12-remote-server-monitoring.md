@@ -11,8 +11,9 @@ tags:
     - monitoring
     - observability
 ---
+Here is a bit of a back story for the readers to understand the context better. We have our software(microservices) running on linux servers that will deployed across the globe. We also have our cloud platform through which we gain insights on our software[ more on that in a later blog] but that lacks the node and container metrics we need to monitor our servers. Due to the nature of the business, we have limted/restricted access to the client's network. Based on the requirements and other factors we decided to side with open source tools and frameworks that will better integrate into our system.
 
-The stations will be deployed across the globe and we need a way to effectively monitor and alert us in real-time. Thanks to [Prometheus](https://prometheus.io/), all the heavy-lifting is done for us.  In this post, I will run through a series of steps that is required to  setup Prometheus on a Linux server and then go ahead and setup [Grafana Cloud](https://grafana.com/products/cloud/) as our observability platform through which can intuitively gain insights from our data sources across the globe.
+Thanks to [Prometheus](https://prometheus.io/), all the heavy-lifting is done for us.  In this post, I will run through a series of steps that is required to  setup Prometheus on a Linux server and then go ahead and setup [Grafana Cloud](https://grafana.com/products/cloud/) as our observability platform through which can intuitively gain insights from our data sources across the globe.
 
 ### Requirements
 
@@ -21,23 +22,24 @@ The stations will be deployed across the globe and we need a way to effectively 
 
 ### Set up Prometheus, Node Exporter and cAdvisor
 
-Firstly, we will need to setup the [node_exporter](https://github.com/prometheus/node_exporter) that is responsible for collecting the prometheus metrics and sending it to the grafana cloud and then install prometheus on the node and even run them as a systemd service. [Here](https://grafana.com/docs/grafana-cloud/quickstart/agent_linuxnode/) you can find the instructions to set it up.  In case you want to run the services as docker containers, look no further.  We will also be using cAdvisor(Container Advisor) that collects the container performance metrics.
+Firstly, we will need to setup the [node_exporter](https://github.com/prometheus/node_exporter) that is responsible for collecting the prometheus metrics and sending it to the grafana cloud and then install prometheus on the node and even run them as a systemd service. One can find the instructions to set it up on this [page](https://grafana.com/docs/grafana-cloud/quickstart/agent_linuxnode/).  In case you want to run the services as docker containers, look no further.  We will also be using [cAdvisor](https://hub.docker.com/r/google/cadvisor/)(Container Advisor) that collects the container performance metrics.
 
-Let's open a terminal,
+Let's open a terminal and do the following shall we?,
 
 ```bash
 # Create a node_monitor directory on the node where you are running the monitoring services
 mkdir ~/node_monitor && cd node_monitor
 # Create a docker-compose file to setup the services
-touch docker-compose.ymlinuxl
+touch docker-compose.yml
 # Create a prometheus directory to store the config 
 mkdir prometheus && cd prometheus
+# Create the config file
 touch prometheus.yml
 ```
 
 #### Configure Prometheus
 
-Now we need to configure prometheus to publish the content to grafana cloud. For that, we need to edit the contents of the `prometheus.yml` with the following content,
+Now we need to configure prometheus to publish the metrics to grafana cloud. For that, we need to edit the contents of the `prometheus.yml` with the following,
 
 ```yaml
 global:
@@ -56,7 +58,7 @@ remote_write:
       password: "your Grafana API key"
 ```
 
-Save the file and we shall come back to it shortly.  The grafana `username` and `password` need to be created in order to visualize the data on the grafana dashboard.
+Save the file and we shall come back to it shortly. The grafana `username` and `password` need to be created in order to visualize the data on the grafana dashboard.
 
 - Let's login into grafana cloud portal and create a stack.
 
