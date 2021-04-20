@@ -19,7 +19,7 @@
 />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Remote Server Monitoring and Observability"/>
-<meta name="twitter:description" content="The stations will be deployed across the globe and we need a way to effectively monitor and alert us in real-time. Thanks to Prometheus, all the heavy-lifting is done for us. In this post, I will run through a series of steps that is required to setup Prometheus on a Linux server and then go ahead and setup Grafana Cloud as our observability platform through which can intuitively gain insights from our data sources across the globe."/>
+<meta name="twitter:description" content="Here is a bit of a back story for the readers to understand the context better. We have our software(microservices) running on linux servers that will deployed across the globe. We also have our cloud platform through which we gain insights on our software[ more on that in a later blog] but that lacks the node and container metrics we need to monitor our servers. Due to the nature of the business, we have limted/restricted access to the client&rsquo;s network."/>
 
 
 
@@ -136,24 +136,26 @@
   <div class="container" role="main">
     <article class="article" class="blog-post">
       
-  <p>The stations will be deployed across the globe and we need a way to effectively monitor and alert us in real-time. Thanks to <a href="https://prometheus.io/">Prometheus</a>, all the heavy-lifting is done for us.  In this post, I will run through a series of steps that is required to  setup Prometheus on a Linux server and then go ahead and setup <a href="https://grafana.com/products/cloud/">Grafana Cloud</a> as our observability platform through which can intuitively gain insights from our data sources across the globe.</p>
+  <p>Here is a bit of a back story for the readers to understand the context better. We have our software(microservices) running on linux servers that will deployed across the globe. We also have our cloud platform through which we gain insights on our software[ more on that in a later blog] but that lacks the node and container metrics we need to monitor our servers. Due to the nature of the business, we have limted/restricted access to the client&rsquo;s network. Based on the requirements and other factors we decided to side with open source tools and frameworks that will better integrate into our system.</p>
+<p>Thanks to <a href="https://prometheus.io/">Prometheus</a>, all the heavy-lifting is done for us.  In this post, I will run through a series of steps that is required to  setup Prometheus on a Linux server and then go ahead and setup <a href="https://grafana.com/products/cloud/">Grafana Cloud</a> as our observability platform through which can intuitively gain insights from our data sources across the globe.</p>
 <h3 id="requirements">Requirements</h3>
 <ul>
 <li><a href="https://grafana.com/docs/grafana-cloud/quickstart/">Grafana Cloud Account</a></li>
 <li>Access to Linux Server(Node)</li>
 </ul>
 <h3 id="set-up-prometheus-node-exporter-and-cadvisor">Set up Prometheus, Node Exporter and cAdvisor</h3>
-<p>Firstly, we will need to setup the <a href="https://github.com/prometheus/node_exporter">node_exporter</a> that is responsible for collecting the prometheus metrics and sending it to the grafana cloud and then install prometheus on the node and even run them as a systemd service. <a href="https://grafana.com/docs/grafana-cloud/quickstart/agent_linuxnode/">Here</a> you can find the instructions to set it up.  In case you want to run the services as docker containers, look no further.  We will also be using cAdvisor(Container Advisor) that collects the container performance metrics.</p>
-<p>Let&rsquo;s open a terminal,</p>
+<p>Firstly, we will need to setup the <a href="https://github.com/prometheus/node_exporter">node_exporter</a> that is responsible for collecting the prometheus metrics and sending it to the grafana cloud and then install prometheus on the node and even run them as a systemd service. One can find the instructions to set it up on this <a href="https://grafana.com/docs/grafana-cloud/quickstart/agent_linuxnode/">page</a>.  In case you want to run the services as docker containers, look no further.  We will also be using <a href="https://hub.docker.com/r/google/cadvisor/">cAdvisor</a>(Container Advisor) that collects the container performance metrics.</p>
+<p>Let&rsquo;s open a terminal and do the following shall we?,</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Create a node_monitor directory on the node where you are running the monitoring services</span>
 mkdir ~/node_monitor <span style="color:#f92672">&amp;&amp;</span> cd node_monitor
 <span style="color:#75715e"># Create a docker-compose file to setup the services</span>
-touch docker-compose.ymlinuxl
+touch docker-compose.yml
 <span style="color:#75715e"># Create a prometheus directory to store the config </span>
 mkdir prometheus <span style="color:#f92672">&amp;&amp;</span> cd prometheus
+<span style="color:#75715e"># Create the config file</span>
 touch prometheus.yml
 </code></pre></div><h4 id="configure-prometheus">Configure Prometheus</h4>
-<p>Now we need to configure prometheus to publish the content to grafana cloud. For that, we need to edit the contents of the <code>prometheus.yml</code> with the following content,</p>
+<p>Now we need to configure prometheus to publish the metrics to grafana cloud. For that, we need to edit the contents of the <code>prometheus.yml</code> with the following,</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">global</span>:
   <span style="color:#f92672">scrape_interval</span>: <span style="color:#ae81ff">15s</span>
   <span style="color:#f92672">evaluation_interval</span>: <span style="color:#ae81ff">15s</span>
@@ -168,7 +170,7 @@ touch prometheus.yml
     <span style="color:#f92672">basic_auth</span>:
       <span style="color:#f92672">username</span>: <span style="color:#e6db74">&#34;your grafana username&#34;</span>
       <span style="color:#f92672">password</span>: <span style="color:#e6db74">&#34;your Grafana API key&#34;</span>
-</code></pre></div><p>Save the file and we shall come back to it shortly.  The grafana <code>username</code> and <code>password</code> need to be created in order to visualize the data on the grafana dashboard.</p>
+</code></pre></div><p>Save the file and we shall come back to it shortly. The grafana <code>username</code> and <code>password</code> need to be created in order to visualize the data on the grafana dashboard.</p>
 <ul>
 <li>
 <p>Let&rsquo;s login into grafana cloud portal and create a stack.</p>
